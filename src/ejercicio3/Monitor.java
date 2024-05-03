@@ -31,7 +31,7 @@ public class Monitor {
 
 	}
 
-	public int pedirMaquina() throws InterruptedException {
+	public int pedirMaquina(int id) throws InterruptedException {
 		l.lock();
 		int valor = 0;
 		try {
@@ -49,52 +49,66 @@ public class Monitor {
 				maquinas[2] = true;
 				valor = 2;
 			}
-			System.out.println("Entrando a Maquina: " + valor);
 		} finally {
 			l.unlock();
 		}
 		return valor;
 	}
 
-	public int irDeMaquinaAMesa(int tiempoY, int numMaquina) throws InterruptedException {
+	public int irDeMaquinaAMesa(int id, int tiempoX, int tiempoY, int numMaquina) throws InterruptedException {
 		// salir de la maquina
 		l.lock();
 		try {
 				maquinas[numMaquina] = false;
 
-			System.out.println("Saliendo de Maquina: " + numMaquina);
 			colaMaquina.signal();
 			//ir a la mesa
 			tiempoMinimo = TIEMPO_MAXIMO;
 			for (int i = 0; i < tiempoMesas.length; i++) {
-				if (tiempoMinimo < tiempoMesas[i]) {
+				if (tiempoMinimo > tiempoMesas[i]) {
 					tiempoMinimo = tiempoMesas[i];
 					mesaMinima = i;
 				}
 			}
 
 			// TODO: Por aquí debería imprimir por pantalla todo lo que hay q imprimir
-			mesas[mesaMinima] = true;
+			System.out.println("Cliente " + id + " ha solicitado su servicio en la máquina: " + numMaquina);
+			System.out.println("Tiempo en solicitar el servicio: " + tiempoX);
+			System.out.println("Será atendido en la mesa: " + mesaMinima);
+			System.out.println("Tiempo en la mesa = " + tiempoY);
+			System.out.println("Tiempo de espera en la mesa0: " + tiempoMesas[0]
+					+ ", mesa1: " +tiempoMesas[1]
+					+ ", mesa2: " +tiempoMesas[2]	
+					+ ", mesa3: " +tiempoMesas[3]);
+			
 			tiempoMesas[mesaMinima] += tiempoY;
-			System.out.println("Entrando a la cola de la Mesa: " + mesaMinima);
 			while (mesas[mesaMinima]) {
 				colasMesas[mesaMinima].await();
 			}
-
-			System.out.println("Entrando a Mesa: " + mesaMinima);
+			mesas[mesaMinima] = true;
 			return mesaMinima;
 		} finally {
 			l.unlock();
 		}
 	}
-	public void salirMesa(int mesaMinima) {
+	public void salirMesa(int id, int mesaMinima) {
 		l.lock();
 		try {
 			mesas[mesaMinima] = false;
-			System.out.println("Saliendo de Mesa: " + mesaMinima);
 			colasMesas[mesaMinima].signal();
 		} finally {
 			l.unlock();
 		}
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

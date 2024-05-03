@@ -3,6 +3,7 @@ package ejercicio3;
 import java.util.Random;
 
 public class HiloCliente extends Thread{
+	private int id;
 	private Monitor monitor;
 	private int tiempoX;
 	private int tiempoY;
@@ -11,9 +12,10 @@ public class HiloCliente extends Thread{
 	Random random = new Random();
 	
 
-	public HiloCliente (Monitor m) {
+	public HiloCliente (int id, Monitor m) {
+		this.id = id;
 		monitor = m;
-		tiempoX = random.nextInt(1000);
+		tiempoX = random.nextInt(100);
 		tiempoY = random.nextInt(1000);
 	}
 	
@@ -22,7 +24,7 @@ public class HiloCliente extends Thread{
 
 
 		try {
-			numMaquina = monitor.pedirMaquina();
+			numMaquina = monitor.pedirMaquina(id);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -32,7 +34,7 @@ public class HiloCliente extends Thread{
 			e.printStackTrace();
 		}
 		try {
-			numMesa = monitor.irDeMaquinaAMesa(tiempoY, numMaquina);
+			numMesa = monitor.irDeMaquinaAMesa(id, tiempoX, tiempoY, numMaquina);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +44,7 @@ public class HiloCliente extends Thread{
 			e.printStackTrace();
 		}
 		try {
-			monitor.salirMesa(numMesa);
+			monitor.salirMesa(id, numMesa);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
