@@ -1,4 +1,4 @@
-package Ejercicio1;
+package ejercicio1;
 
 public class HiloPrincipal {
 	public static void main(String[] args) {
