@@ -61,7 +61,7 @@ public class Monitor {
 		try {
 				maquinas[numMaquina] = false;
 
-			colaMaquina.signal();
+			colaMaquina.signalAll();
 			//ir a la mesa
 			tiempoMinimo = TIEMPO_MAXIMO;
 			for (int i = 0; i < tiempoMesas.length; i++) {
@@ -95,7 +95,7 @@ public class Monitor {
 		l.lock();
 		try {
 			mesas[mesaMinima] = false;
-			colasMesas[mesaMinima].signal();
+			colasMesas[mesaMinima].signalAll();
 		} finally {
 			l.unlock();
 		}

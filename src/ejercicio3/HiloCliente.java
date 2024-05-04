@@ -15,8 +15,8 @@ public class HiloCliente extends Thread{
 	public HiloCliente (int id, Monitor m) {
 		this.id = id;
 		monitor = m;
-		tiempoX = random.nextInt(100);
-		tiempoY = random.nextInt(1000);
+		tiempoX = random.nextInt(500);
+		tiempoY = random.nextInt(500);
 	}
 	
 	@Override
