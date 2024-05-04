@@ -1,5 +1,12 @@
 package ejercicio2;
 
+/**
+ * El hilo controlador.
+ * Se encarga de cambiar de turno, alternando:
+ * norte-sur -> peatones -> este-oeste -> norte-sur -> peatones -> este-oeste -> norte-sur -> ...
+ * Cada vez que cambia de turno, despierta coches o peatones si es necesario, espera el valor indicado en TIEMPO_ESPERA
+ * (5 segundos) y cambia de nuevo al turno que corresponda.
+ */
 public class HiloControlador extends Thread {
 	private final static int TIEMPO_ESPERA = 5000;
 	@Override
@@ -8,7 +15,6 @@ public class HiloControlador extends Thread {
 			try {
 				HiloPrincipal.mutexVar.acquire();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -35,19 +41,17 @@ public class HiloControlador extends Thread {
 			try {
 				sleep(TIEMPO_ESPERA);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			try {
 				HiloPrincipal.mutexVar.acquire();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			VariablesGlobales.turno = Turnos.PEATONES;
-			System.out.println("TURNO DEL PROLETARIADO (PEATONES)");
+			System.out.println("TURNO PEATONES");
 			
 			if(VariablesGlobales.nccns == 0 && VariablesGlobales.npc == 0 && VariablesGlobales.ncceo == 0) {
 				int peatones_a_liberar = 10;
@@ -68,7 +72,6 @@ public class HiloControlador extends Thread {
 			try {
 				sleep(TIEMPO_ESPERA);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -100,7 +103,6 @@ public class HiloControlador extends Thread {
 			try {
 				sleep(TIEMPO_ESPERA);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

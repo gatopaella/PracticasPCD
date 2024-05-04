@@ -2,6 +2,9 @@ package ejercicio1;
 
 import java.util.Random;
 
+/**
+ * Genera aleatoriamente los valores del array de datos.
+ */
 public class HiloGenerador extends Thread {
 	private Random random = new Random();
 	

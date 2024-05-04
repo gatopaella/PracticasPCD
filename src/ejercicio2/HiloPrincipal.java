@@ -2,6 +2,11 @@ package ejercicio2;
 
 import java.util.concurrent.Semaphore;
 
+/**
+ * El hilo principal del ejercicio 2.
+ * Al ejecutarse, despierta 50 coches, 100 peatones y pone en marcha el controlador de turnos tantas rondas como
+ * indique la constante RONDAS (3).
+ */
 public class HiloPrincipal {
 	public static Semaphore mutexVar = new Semaphore(1);
 	public static Semaphore cruzarNS = new Semaphore(0);
@@ -11,7 +16,7 @@ public class HiloPrincipal {
 	public final static int RONDAS = 3;
 
 	private final static int NUM_COCHES = 50;
-	private final static int NUM_PEATONES = 50;
+	private final static int NUM_PEATONES = 100;
 	
 	public static void main(String[] args) {
 		VariablesGlobales.turno = Turnos.SIN_INICIAR;

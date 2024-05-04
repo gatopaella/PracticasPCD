@@ -1,5 +1,16 @@
 package ejercicio2;
 
+/**
+ * Modeliza un coche.
+ * En cuanto pueda, cruzará la carretera. Primero de norte a sur y luego de este a oeste, y así sucesivamente,
+ * alternando entre estas direcciones.
+ * El tiempo que tarda en cruzar está determinado por la constante TIEMPO_CRUZANDO (500 ms)
+ * y el tiempo que espera cuando cambia de dirección se almacena en la variable TIEMPO_CAMBIO_DIR (7 segundos).
+ * 
+ * Informa por pantalla cada vez que el coche comienza a cruzar, 
+ * añadiendo el número de coches que están cruzando simultáneamente,
+ * y cuando termina.
+ */
 public class HiloCoche extends Thread {
 
 	private final static int TIEMPO_CRUZANDO = 500;
@@ -20,8 +31,10 @@ public class HiloCoche extends Thread {
 					|| VariablesGlobales.npc > 0 
 					|| VariablesGlobales.nccns == 4) {
 				VariablesGlobales.ncens++;
+				/*
 				System.out.println("Coche quiere cruzar de norte a sur\n"
 						+ "Número de coches esperando para cruzar de N a S: " + VariablesGlobales.ncens);
+						*/
 				HiloPrincipal.mutexVar.release();
 				try { // wait(cruzarNS)
 					HiloPrincipal.cruzarNS.acquire();
@@ -31,11 +44,11 @@ public class HiloCoche extends Thread {
 				VariablesGlobales.ncens--;
 			}
 			VariablesGlobales.nccns++;
+			System.out.println("Coche empieza a cruzar de norte a sur\n"
+					+ "Número de coches cruzando de norte a sur: " + VariablesGlobales.nccns);
 			
 			HiloPrincipal.mutexVar.release();
 			
-			System.out.println("Coche empieza a cruzar de norte a sur\n"
-					+ "Número de coches cruzando de norte a sur: " + VariablesGlobales.nccns);
 			try { // CRUZAN
 				sleep(TIEMPO_CRUZANDO);
 			} catch (InterruptedException e) {
@@ -45,7 +58,6 @@ public class HiloCoche extends Thread {
 			try {	// wait(mutexVar)
 				HiloPrincipal.mutexVar.acquire();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -65,7 +77,6 @@ public class HiloCoche extends Thread {
 					try {
 						HiloPrincipal.mutexVar.acquire();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -79,7 +90,6 @@ public class HiloCoche extends Thread {
 					try {
 						HiloPrincipal.mutexVar.acquire();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -91,7 +101,6 @@ public class HiloCoche extends Thread {
 			try {
 				sleep(TIEMPO_CAMBIO_DIR);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -107,34 +116,34 @@ public class HiloCoche extends Thread {
 					|| VariablesGlobales.npc > 0
 					|| VariablesGlobales.nccns > 0
 					|| VariablesGlobales.ncceo == 4) {
+				/*
 				System.out.println("Coche quiere cruzar de este a oeste\n"
 						+ "Número de coches esperando para cruzar de este a oeste: " + VariablesGlobales.nceeo);
+						*/
 				VariablesGlobales.nceeo++;
 				HiloPrincipal.mutexVar.release();
 				try { // wait(cruzarEO)
 					HiloPrincipal.cruzarEO.acquire();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				VariablesGlobales.nceeo--;
 			}
 			VariablesGlobales.ncceo++;
-			HiloPrincipal.mutexVar.release();
-			
 			System.out.println("Coche empieza a cruzar de este a oeste\n"
 					+ "Número de coches cruzando de E a O: " + VariablesGlobales.ncceo);
+			
+			HiloPrincipal.mutexVar.release();
+			
 			try { // CRUZAN
 				sleep(TIEMPO_CRUZANDO);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			try { // wait(mutexVar)
 				HiloPrincipal.mutexVar.acquire();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -152,7 +161,6 @@ public class HiloCoche extends Thread {
 					try {
 						HiloPrincipal.mutexVar.acquire();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -166,7 +174,6 @@ public class HiloCoche extends Thread {
 					try {
 						HiloPrincipal.mutexVar.acquire();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -178,7 +185,6 @@ public class HiloCoche extends Thread {
 			try {
 				sleep(TIEMPO_CAMBIO_DIR);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

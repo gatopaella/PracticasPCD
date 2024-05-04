@@ -1,5 +1,12 @@
 package ejercicio1;
 
+/**
+ * El hilo principal del ejercicio 1.
+ * 
+ * Inicializa y despierta a los hilos consumidores, al generador y al sumador.
+ * Para sincronizarlos, primero indica a los consumidores que esperen a que termine el generador y después indica
+ * al sumador que espere a los consumidores.
+ */
 public class HiloPrincipal {
 	public static void main(String[] args) {
 		HiloConsumidor consumidores[] = new HiloConsumidor[10];
