@@ -5,4 +5,5 @@
  * 
  */
 module Practicas {
+	requires messagepassing;
 }
