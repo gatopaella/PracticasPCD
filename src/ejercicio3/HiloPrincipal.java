@@ -1,5 +1,9 @@
 package ejercicio3;
 
+/**
+ * El hilo principal del ejercicio 3.
+ * Inicializa el monitor y los clientes y los pone en marcha.
+ */
 public class HiloPrincipal {
 	//creo 50 hilos Cliente	
 	

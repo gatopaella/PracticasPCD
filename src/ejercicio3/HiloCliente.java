@@ -2,6 +2,11 @@ package ejercicio3;
 
 import java.util.Random;
 
+/**
+ * Modeliza un cliente.
+ * Utilizará el monitor dos veces. La primera, para acceder a la cola de las máquinas. La segunda, para ser dirigido a una
+ * de las 4 colas de las mesas, permaneciendo inactivo un cierto tiempo tras cada uso del monitor.
+ */
 public class HiloCliente extends Thread{
 	private int id;
 	private Monitor monitor;
@@ -11,7 +16,11 @@ public class HiloCliente extends Thread{
 	private int numMesa;
 	Random random = new Random();
 	
-
+	/**
+	 * Constructor del hilo cliente.
+	 * @param id Número entero que identifica el hilo.
+	 * @param m El monitor al que accederá el hilo.
+	 */
 	public HiloCliente (int id, Monitor m) {
 		this.id = id;
 		monitor = m;
@@ -24,7 +33,7 @@ public class HiloCliente extends Thread{
 
 
 		try {
-			numMaquina = monitor.pedirMaquina(id);
+			numMaquina = monitor.pedirMaquina();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +53,7 @@ public class HiloCliente extends Thread{
 			e.printStackTrace();
 		}
 		try {
-			monitor.salirMesa(id, numMesa);
+			monitor.salirMesa(numMesa);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
